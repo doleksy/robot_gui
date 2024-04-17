@@ -10,4 +10,7 @@ public:
 
     void run();
 
+private:
+    const std::string WINDOW_NAME = "ROS Robot GUI";
+
 };

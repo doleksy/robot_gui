@@ -28,7 +28,7 @@ void RobotGui::run()
 
         // Create the main columnn
         cvui::beginColumn(frame, 20, 20, -1, -1, 5);
-            cvui::text("Main Column");
+            cvui::text("Teleoperation Buttons");
             cvui::beginRow(-1, -1, 5);
                 cvui::rect(100, 50, 0xff0000);
                 cvui::button(100, 50, "Forward");

@@ -141,7 +141,11 @@ include_directories(
 add_executable(robot_gui_node
 	src/robot_gui_node.cpp
 	src/robot_gui.cpp
+  src/distance.cpp
+  src/info_area.cpp
+  src/position.cpp
   src/teleoperation.cpp
+  src/velocities.cpp
 )
 
 ## Rename C++ executable without prefix

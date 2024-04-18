@@ -3,6 +3,6 @@
 class Teleoperation
 {
 public:
-    void renderTeleoperation();
-    
+    void renderButtons();
+
 };

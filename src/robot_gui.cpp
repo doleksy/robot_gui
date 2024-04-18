@@ -4,6 +4,8 @@
 #include "robot_gui/cvui.h"
 
 #include "robot_gui/robot_gui.h"
+
+#include "robot_gui/distance.h"
 #include "robot_gui/position.h"
 #include "robot_gui/teleoperation.h"
 #include "robot_gui/velocities.h"
@@ -22,6 +24,7 @@ void RobotGui::run()
     cv::Mat frame = cv::Mat(cv::Size(400, 800), CV_8UC3);
 
     CurrentVelocities velocities;
+    DistanceTraveled distance;
     OdometryPosition position;
     Teleoperation teleoperation;
 
@@ -38,6 +41,7 @@ void RobotGui::run()
             velocities.renderWindows();
             cvui::space(5);
             position.renderWindows();
+            distance.render();
         cvui::endColumn();
 
         // Show everything on the screen

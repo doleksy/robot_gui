@@ -6,6 +6,7 @@
 #include "robot_gui/robot_gui.h"
 
 #include "robot_gui/distance.h"
+#include "robot_gui/info_area.h"
 #include "robot_gui/position.h"
 #include "robot_gui/teleoperation.h"
 #include "robot_gui/velocities.h"
@@ -21,10 +22,11 @@ RobotGui::RobotGui(ros::NodeHandle &nh)
 
 void RobotGui::run()
 {
-    cv::Mat frame = cv::Mat(cv::Size(400, 800), CV_8UC3);
+    cv::Mat frame = cv::Mat(cv::Size(350, 700), CV_8UC3);
 
     CurrentVelocities velocities;
     DistanceTraveled distance;
+    GeneralInfoArea infoArea;
     OdometryPosition position;
     Teleoperation teleoperation;
 
@@ -39,9 +41,15 @@ void RobotGui::run()
         cvui::beginColumn(frame, 20, 20, -1, -1, 5);
             teleoperation.renderButtons();
             velocities.renderWindows();
-            cvui::space(5);
+            cvui::rect(310, 5, 0x819E5C);
+            cvui::space(1);
             position.renderWindows();
+            cvui::rect(310, 5, 0x819E5C);
+            cvui::space(1);
             distance.render();
+            cvui::rect(310, 5, 0x819E5C);
+            cvui::space(1);
+            infoArea.renderArea();
         cvui::endColumn();
 
         // Show everything on the screen

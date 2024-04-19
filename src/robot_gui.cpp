@@ -8,14 +8,19 @@
 #include "robot_gui/distance.h"
 #include "robot_gui/info_area.h"
 #include "robot_gui/position.h"
-#include "robot_gui/teleoperation.h"
 #include "robot_gui/velocities.h"
 
-// debug
 #include <iostream>
 
 
+namespace
+{
+    const std::string WINDOW_NAME = "ROS Robot GUI";
+}
+
+
 RobotGui::RobotGui(ros::NodeHandle &nh)
+    : teleoperation_(nh)
 {
     std::cout << "RobotGui constructed\n";
 }
@@ -28,18 +33,18 @@ void RobotGui::run()
     DistanceTraveled distance;
     GeneralInfoArea infoArea;
     OdometryPosition position;
-    Teleoperation teleoperation;
 
     // Init a OpenCV window and tell cvui to use it
     cv::namedWindow(WINDOW_NAME);
     cvui::init(WINDOW_NAME);
 
-    while(true) {
+    while (ros::ok())
+    {
         frame = cv::Scalar(49, 52, 49);
 
         // Create the main columnn
         cvui::beginColumn(frame, 20, 20, -1, -1, 5);
-            teleoperation.renderButtons();
+            teleoperation_.renderButtons();
             velocities.renderWindows();
             cvui::rect(310, 5, 0x819E5C);
             cvui::space(1);

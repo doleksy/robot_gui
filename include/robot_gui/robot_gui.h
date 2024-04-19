@@ -2,6 +2,8 @@
 
 #include "ros/node_handle.h"
 
+#include "robot_gui/teleoperation.h"
+
 
 class RobotGui
 {
@@ -11,6 +13,6 @@ public:
     void run();
 
 private:
-    const std::string WINDOW_NAME = "ROS Robot GUI";
+    Teleoperation teleoperation_;
 
 };

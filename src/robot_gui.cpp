@@ -8,7 +8,6 @@
 #include "robot_gui/distance.h"
 #include "robot_gui/info_area.h"
 #include "robot_gui/position.h"
-#include "robot_gui/velocities.h"
 
 #include <iostream>
 
@@ -21,6 +20,7 @@ namespace
 
 RobotGui::RobotGui(ros::NodeHandle &nh)
     : teleoperation_(nh)
+    , velocities_(nh)
 {
     std::cout << "RobotGui constructed\n";
 }
@@ -29,7 +29,6 @@ void RobotGui::run()
 {
     cv::Mat frame = cv::Mat(cv::Size(350, 700), CV_8UC3);
 
-    CurrentVelocities velocities;
     DistanceTraveled distance;
     GeneralInfoArea infoArea;
     OdometryPosition position;
@@ -45,7 +44,7 @@ void RobotGui::run()
         // Create the main columnn
         cvui::beginColumn(frame, 20, 20, -1, -1, 5);
             teleoperation_.renderButtons();
-            velocities.renderWindows();
+            velocities_.renderWindows();
             cvui::rect(310, 5, 0x819E5C);
             cvui::space(1);
             position.renderWindows();
@@ -63,5 +62,7 @@ void RobotGui::run()
         if (cv::waitKey(20) == 27) {
             break;
         }
+
+        ros::spinOnce();
     }
 }

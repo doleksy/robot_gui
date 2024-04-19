@@ -7,15 +7,16 @@
 
 namespace
 {
-  const float linear_velocity_step  { 0.1f };
-  const float angular_velocity_step { 0.1f };
+    const std::string   twist_topic_name      { "/cmd_vel" };
+    const float         linear_velocity_step  { 0.1f };
+    const float         angular_velocity_step { 0.1f };
 }
 
 
 Teleoperation::Teleoperation(ros::NodeHandle &nh)
-    : twist_pub_{ nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10) }
+    : twist_pub_{ nh.advertise<geometry_msgs::Twist>(twist_topic_name, 10) }
 {
-    std::cout << "... Robot TeleoperationButtons constructed\n";
+    std::cout << "... Robot Teleoperation Buttons constructed\n";
 }
 
 void Teleoperation::renderButtons()

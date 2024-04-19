@@ -2,7 +2,8 @@
 
 #include "ros/node_handle.h"
 
-#include "robot_gui/teleoperation.h"
+#include "teleoperation.h"
+#include "velocities.h"
 
 
 class RobotGui
@@ -13,6 +14,7 @@ public:
     void run();
 
 private:
+    CurrentVelocities velocities_;
     Teleoperation teleoperation_;
 
 };

@@ -2,6 +2,19 @@
 
 #include "robot_gui/cvui.h"
 
+#include <iostream>
+
+
+namespace
+{
+    const std::string twist_topic_name{ "/cmd_vel" };
+}
+
+CurrentVelocities::CurrentVelocities(ros::NodeHandle &nh)
+    : twist_sub_{ nh.subscribe<geometry_msgs::Twist>(twist_topic_name, 2, &CurrentVelocities::msgCallback, this) }
+{
+    std::cout << "... Robot Current Velocity constructed\n";
+}
 
 void CurrentVelocities::renderWindows()
 {
@@ -13,12 +26,17 @@ void CurrentVelocities::renderWindows()
                 auto * const rowBlock = &cvui::internal::topBlock(); 
                 const auto * const winRect = &rowBlock->rect;
                 cvui::window(153, 40, "Linear velocity:");
-                // Replace with printf once we hook up the actual controls
-                cvui::text(rowBlock->where, winRect->x + 60, winRect->y + 25, "0.00 m/sec", 0.4, 0xff0000);
+                cvui::printf(rowBlock->where, winRect->x + 60, winRect->y + 25, 0.4, 0xff0000, "%0.2f m/sec", twist_msg_.linear.x);
+
                 cvui::window(153, 40, "Angular velocity:");
-                // Replace with printf once we hook up the actual controls
-                cvui::text(rowBlock->where, winRect->x + 153+4+60, winRect->y + 25, "0.00 m/sec", 0.4, 0xff0000);
+                cvui::printf(rowBlock->where, winRect->x + 153+4+60, winRect->y + 25, 0.4, 0xff0000, "%0.2f m/sec", twist_msg_.angular.z);
             cvui::endRow();
         cvui::endColumn();
     cvui::endRow();
+}
+
+void CurrentVelocities::msgCallback(const geometry_msgs::TwistConstPtr &msg)
+{
+    twist_msg_ = *msg;
+    ROS_DEBUG("Twist: Linear x: %0.2f, angular z: %0.2f", msg->linear.x, msg->angular.z);
 }

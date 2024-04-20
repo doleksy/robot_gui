@@ -26,13 +26,13 @@ void OdometryPosition::renderWindows()
                 auto * const rowBlock = &cvui::internal::topBlock(); 
                 const auto * const winRect = &rowBlock->rect;
                 cvui::window(100, 100, "X");
-                cvui::printf(rowBlock->where, winRect->x + 21, winRect->y + 48, 1.0, 0xCECECE, "%03.f", odom_position_.x);
+                cvui::printf(rowBlock->where, winRect->x + 5, winRect->y + 48, 0.70, 0xCECECE, "%+05.2f", odom_position_.x);
 
                 cvui::window(100, 100, "Y");
-                cvui::printf(rowBlock->where, winRect->x + 100+5+21, winRect->y + 48, 1.0, 0xCECECE, "%03.f", odom_position_.y);
+                cvui::printf(rowBlock->where, winRect->x + 100+5+5, winRect->y + 48, 0.70, 0xCECECE, "%+05.2f", odom_position_.y);
 
                 cvui::window(100, 100, "Z");
-                cvui::printf(rowBlock->where, winRect->x + 200+10+21, winRect->y + 48, 1.0, 0xCECECE, "%03.f", odom_position_.z);
+                cvui::printf(rowBlock->where, winRect->x + 200+10+5, winRect->y + 48, 0.70, 0xCECECE, "%+05.2f", odom_position_.z);
             cvui::endRow();
         cvui::endColumn();
     cvui::endRow();

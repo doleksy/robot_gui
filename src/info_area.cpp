@@ -3,6 +3,18 @@
 #include "robot_gui/cvui.h"
 
 
+namespace
+{
+    const std::string info_topic_name{ "/robot_info" };
+}
+
+
+GeneralInfoArea::GeneralInfoArea(ros::NodeHandle &nh)
+    : info_sub_{ nh.subscribe<robotinfo_msgs::RobotInfo10Fields>(info_topic_name, 2, &GeneralInfoArea::infoCallback, this) }
+{
+    std::cout << "... Robot General Information Area constructed\n";
+}
+
 void GeneralInfoArea::renderArea()
 {
     constexpr const int xOffset{ 5 };
@@ -14,18 +26,18 @@ void GeneralInfoArea::renderArea()
             auto * const rowBlock = &cvui::internal::topBlock(); 
             const auto * const winRect = &rowBlock->rect;
             cvui::window(310, 140, "Info:");
-            // Replace with printf once we hook up the actual controls
-            cvui::text(rowBlock->where, winRect->x + xOffset, winRect->y + 24, "0.00 Info 1");
-            // Replace with printf once we hook up the actual controls
-            cvui::text(rowBlock->where, winRect->x + xOffset, winRect->y + 44, "255.00 Info 2");
-            // Replace with printf once we hook up the actual controls
-            cvui::text(rowBlock->where, winRect->x + xOffset, winRect->y + 64, "255.00 Info 3");
-            // Replace with printf once we hook up the actual controls
-            cvui::text(rowBlock->where, winRect->x + xOffset, winRect->y + 84, "255.00 Info 4");
-            // Replace with printf once we hook up the actual controls
-            cvui::text(rowBlock->where, winRect->x + xOffset, winRect->y + 104, "255.00 Info 5");
-            // Replace with printf once we hook up the actual controls
-            cvui::text(rowBlock->where, winRect->x + xOffset, winRect->y + 124, "255.00 Info 6");
+            cvui::printf(rowBlock->where, winRect->x + xOffset, winRect->y + 24, "%s", robot_info_.data_field_01.c_str());
+            cvui::printf(rowBlock->where, winRect->x + xOffset, winRect->y + 44, "%s", robot_info_.data_field_02.c_str());
+            cvui::printf(rowBlock->where, winRect->x + xOffset, winRect->y + 64, "%s", robot_info_.data_field_03.c_str());
+            cvui::printf(rowBlock->where, winRect->x + xOffset, winRect->y + 84, "%s", robot_info_.data_field_04.c_str());
+            cvui::printf(rowBlock->where, winRect->x + xOffset, winRect->y + 104, "%s", robot_info_.data_field_05.c_str());
+            cvui::printf(rowBlock->where, winRect->x + xOffset, winRect->y + 124, "%s", robot_info_.data_field_06.c_str());
         cvui::endColumn();
     cvui::endRow();
+}
+
+void GeneralInfoArea::infoCallback(const robotinfo_msgs::RobotInfo10FieldsConstPtr &msg)
+{
+    robot_info_ = *msg;
+    ROS_DEBUG("Robot Info: data01: %s, data02: %s", robot_info_.data_field_01.c_str(), robot_info_.data_field_02.c_str());
 }

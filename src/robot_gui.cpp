@@ -5,8 +5,6 @@
 
 #include "robot_gui/robot_gui.h"
 
-#include "robot_gui/info_area.h"
-
 #include <iostream>
 
 
@@ -18,6 +16,7 @@ namespace
 
 RobotGui::RobotGui(ros::NodeHandle &nh)
     : distance_(nh)
+    , infoArea_(nh)
     , position_(nh)
     , teleoperation_(nh)
     , velocities_(nh)
@@ -28,8 +27,6 @@ RobotGui::RobotGui(ros::NodeHandle &nh)
 void RobotGui::run()
 {
     cv::Mat frame = cv::Mat(cv::Size(350, 700), CV_8UC3);
-
-    GeneralInfoArea infoArea;
 
     // Init a OpenCV window and tell cvui to use it
     cv::namedWindow(WINDOW_NAME);
@@ -52,9 +49,9 @@ void RobotGui::run()
             cvui::space(1);
             distance_.render();
             cvui::rect(310, 5, 0x819E5C);
-            
+
             cvui::space(1);
-            infoArea.renderArea();
+            infoArea_.renderArea();
         cvui::endColumn();
 
         // Show everything on the screen

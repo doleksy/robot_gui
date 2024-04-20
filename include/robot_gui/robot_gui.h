@@ -2,6 +2,7 @@
 
 #include "ros/node_handle.h"
 
+#include "position.h"
 #include "teleoperation.h"
 #include "velocities.h"
 
@@ -14,7 +15,8 @@ public:
     void run();
 
 private:
-    CurrentVelocities velocities_;
-    Teleoperation teleoperation_;
+    CurrentVelocities   velocities_;
+    OdometryPosition    position_;
+    Teleoperation       teleoperation_;
 
 };

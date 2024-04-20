@@ -10,8 +10,9 @@ namespace
     const std::string twist_topic_name{ "/cmd_vel" };
 }
 
+
 CurrentVelocities::CurrentVelocities(ros::NodeHandle &nh)
-    : twist_sub_{ nh.subscribe<geometry_msgs::Twist>(twist_topic_name, 2, &CurrentVelocities::msgCallback, this) }
+    : twist_sub_{ nh.subscribe<geometry_msgs::Twist>(twist_topic_name, 2, &CurrentVelocities::twistCallback, this) }
 {
     std::cout << "... Robot Current Velocity constructed\n";
 }
@@ -35,7 +36,7 @@ void CurrentVelocities::renderWindows()
     cvui::endRow();
 }
 
-void CurrentVelocities::msgCallback(const geometry_msgs::TwistConstPtr &msg)
+void CurrentVelocities::twistCallback(const geometry_msgs::TwistConstPtr &msg)
 {
     twist_msg_ = *msg;
     ROS_DEBUG("Twist: Linear x: %0.2f, angular z: %0.2f", msg->linear.x, msg->angular.z);

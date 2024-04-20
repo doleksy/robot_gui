@@ -7,7 +7,6 @@
 
 #include "robot_gui/distance.h"
 #include "robot_gui/info_area.h"
-#include "robot_gui/position.h"
 
 #include <iostream>
 
@@ -19,7 +18,8 @@ namespace
 
 
 RobotGui::RobotGui(ros::NodeHandle &nh)
-    : teleoperation_(nh)
+    : position_(nh)
+    , teleoperation_(nh)
     , velocities_(nh)
 {
     std::cout << "RobotGui constructed\n";
@@ -31,7 +31,6 @@ void RobotGui::run()
 
     DistanceTraveled distance;
     GeneralInfoArea infoArea;
-    OdometryPosition position;
 
     // Init a OpenCV window and tell cvui to use it
     cv::namedWindow(WINDOW_NAME);
@@ -47,7 +46,7 @@ void RobotGui::run()
             velocities_.renderWindows();
             cvui::rect(310, 5, 0x819E5C);
             cvui::space(1);
-            position.renderWindows();
+            position_.renderWindows();
             cvui::rect(310, 5, 0x819E5C);
             cvui::space(1);
             distance.render();

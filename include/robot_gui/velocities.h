@@ -15,7 +15,7 @@ public:
     void renderWindows();
 
 private:
-  void msgCallback(const geometry_msgs::TwistConstPtr &msg);
+    void twistCallback(const geometry_msgs::TwistConstPtr &msg);
 
 private:
     geometry_msgs::Twist    twist_msg_{};

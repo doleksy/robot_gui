@@ -29,33 +29,30 @@ void Teleoperation::renderButtons()
                 cvui::rect(100, 50, 0x313431);
                 if (cvui::button(100, 50, "Forward")) {
                     twist_msg_.linear.x += linear_velocity_step;
-                    twist_pub_.publish(twist_msg_);
                 }
                 cvui::rect(100, 50, 0x313431);
             cvui::endRow();
             cvui::beginRow(-1, -1, 5);
                 if (cvui::button(100, 50, "Left")) {
                     twist_msg_.angular.z += angular_velocity_step;
-                    twist_pub_.publish(twist_msg_);
                 }
                 if (cvui::button(100, 50, "Stop")) {
                     twist_msg_.linear.x = 0;
                     twist_msg_.angular.z = 0;
-                    twist_pub_.publish(twist_msg_);
                 }
                 if (cvui::button(100, 50, "Right")) {
                     twist_msg_.angular.z -= angular_velocity_step;
-                    twist_pub_.publish(twist_msg_);
                 }
             cvui::endRow();
             cvui::beginRow(-1, -1, 5);
                 cvui::rect(100, 50, 0x313431);
                 if (cvui::button(100, 50, "Backward")) {
                     twist_msg_.linear.x -= linear_velocity_step;
-                    twist_pub_.publish(twist_msg_);
                 }
                 cvui::rect(100, 50, 0x313431);
             cvui::endRow();
         cvui::endColumn();
     cvui::endRow();
+
+    twist_pub_.publish(twist_msg_);
 }

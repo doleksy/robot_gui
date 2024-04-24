@@ -26,7 +26,7 @@ RobotGui::RobotGui(ros::NodeHandle &nh)
 
 void RobotGui::run()
 {
-    cv::Mat frame = cv::Mat(cv::Size(350, 700), CV_8UC3);
+    cv::Mat frame = cv::Mat(cv::Size(350, 780), CV_8UC3);
 
     // Init a OpenCV window and tell cvui to use it
     cv::namedWindow(WINDOW_NAME);
